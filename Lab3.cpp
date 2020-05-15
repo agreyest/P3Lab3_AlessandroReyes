@@ -73,6 +73,7 @@ int main(){
 				}
 				
 				Conway = CreateMatrix(filas, columnas);
+				cout<<endl<<"PRIMERA MATRIZ"<<endl;
 				printMatrix(Conway,filas,columnas);
 				LIVEorDEAD(Conway, turnos, filas, columnas);
 				
@@ -120,7 +121,7 @@ int main(){
 					cout<<endl<<"intentelo de nuevo, el numero debe ser mayor o igual a 1: ";
 					cin>>turnos;
 				}
-				
+				cout<<endl<<"PRIMERA MATRIZ"<<endl;
 				printMatrix(mat, x, y);
 				LIVEorDEAD(mat, turnos, x, y);
 				
@@ -189,8 +190,6 @@ void printMatrix(int** matriz, int filas, int columnas){
 void LIVEorDEAD(int** matriz, int turns, int filas, int columnas){
 	int** temporal = NULL; 
 	temporal = CreateMatrix(filas, columnas);
-	cout<<"temporal"<<endl;
-	printMatrix(temporal,filas,columnas);
 	
 	for(int i = 0; i < turns; i++){
 		
@@ -200,57 +199,54 @@ void LIVEorDEAD(int** matriz, int turns, int filas, int columnas){
 					int cont_vivira = 0;//para contar los vecinos vivos
 					
 					if(j-1 >= 0 && k-1 >= 0){
-						
-						if(matriz[j][k] == 1){
+						if(matriz[j-1][k-1] == 1){
 							cont_vivira++;
 						}
 					}
 					
 					if(j-1 >= 0){
-						if(matriz[j][k] == 1){
+						if(matriz[j-1][k] == 1){
 							cont_vivira++;
 						}
 					}
 					
 					if(j-1 >=0 && k+1 < columnas){
-						if(matriz[j][k] == 1){
+						if(matriz[j-1][k+1] == 1){
 							cont_vivira++;
 						}
 					}
 					
 					if(k + 1 < columnas){
-						if(matriz[j][k] == 1){
+						if(matriz[j][k + 1] == 1){
 							cont_vivira++;
 						}	
 					}
 					
 					if(j +1 < filas && k +1 < columnas){
-						if(matriz[j][k] == 1){
+						if(matriz[j +1][k +1] == 1){
 							cont_vivira++;
 						}
 					}
 					
-					if(i + 1 < filas){
-						if(matriz[j][k] == 1){
+					if(j + 1 < filas){
+						if(matriz[j + 1][k] == 1){
 							cont_vivira++;
 						}
 					}
 					
-					if(i + 1 < filas && k-1 >= 0){
-						if(matriz[j][k] == 1){
+					if(j + 1 < filas && k-1 >= 0){
+						if(matriz[j + 1][k-1] == 1){
 							cont_vivira++;
 						}
 					}
 					
 					if(k-1 >= 0){
-						if(matriz[j][k] == 1){
+						if(matriz[j][k-1] == 1){
 							cont_vivira++;
 						}
 					}
-					
 					if(cont_vivira == 3 ){
 						temporal[j][k] = 1;
-						cout<<"vivoooo"<<endl;
 					}
 					
 				}
@@ -258,64 +254,66 @@ void LIVEorDEAD(int** matriz, int turns, int filas, int columnas){
 					int cont_live_die = 0;//nos va decir si sigue viva o muere
 					
 					if(j-1 >= 0 && k-1 >= 0){
-						if(matriz[j][k] == 1){
+						if(matriz[j-1][k-1] == 1){
 							cont_live_die++;
 						}
 					}
 					
 					if(j-1 >= 0){
-						if(matriz[j][k] == 1){
+						if(matriz[j-1][k] == 1){
 							cont_live_die++;
 						}
 					}
 					
 					if(j-1 >=0 && k+1 < columnas){
-						if(matriz[j][k] == 1){
+						if(matriz[j-1][k+1] == 1){
 							cont_live_die++;
 						}
 					}
 					
 					if(k + 1 < columnas){
-						if(matriz[j][k] == 1){
+						if(matriz[j][k + 1] == 1){
 							cont_live_die++;
 						}	
 					}
 					
 					if(j +1 < filas && k +1 < columnas){
-						if(matriz[j][k] == 1){
+						if(matriz[j +1][ k +1] == 1){
 							cont_live_die++;
 						}
 					}
 					
-					if(i + 1 < filas){
-						if(matriz[j][k] == 1){
+					if(j + 1 < filas){
+						if(matriz[j + 1][k] == 1){
 							cont_live_die++;
 						}
 					}
 					
-					if(i + 1 < filas && k-1 >= 0){
-						if(matriz[j][k] == 1){
+					if(j + 1 < filas && k-1 >= 0){
+						if(matriz[j + 1][k-1] == 1){
 							cont_live_die++;
 						}
 					}
 					
 					if(k-1 >= 0){
-						if(matriz[j][k] == 1){
+						if(matriz[j][k-1] == 1){
 							cont_live_die++;
 						}
 					}
 					
 					if(cont_live_die != 3 && cont_live_die != 2){
 						temporal[j][k] = 0;
-						cout<<"F en"<<endl;
 					}
 					
 				}
 			}//fin for de columnas	
 		}//fin for de filas
-		cout<<"antes del cagadal"<<endl;
-		printMatrix(matriz,filas,columnas);
-		matriz = temporal;
+		
+		for(int i = 0; i < filas; i++){
+			for(int j = 0; j < columnas; j++){
+				matriz[i][j] = temporal[i][j];
+			}
+		}
 		
 		getch();
 		printMatrix(matriz,filas,columnas);
