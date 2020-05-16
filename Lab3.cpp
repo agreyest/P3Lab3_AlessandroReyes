@@ -190,6 +190,11 @@ void printMatrix(int** matriz, int filas, int columnas){
 void LIVEorDEAD(int** matriz, int turns, int filas, int columnas){
 	int** temporal = NULL; 
 	temporal = CreateMatrix(filas, columnas);
+	for(int i = 0; i < filas; i++){
+			for(int j = 0; j < columnas; j++){
+				temporal[i][j] = matriz[i][j];
+			}
+		}
 	
 	for(int i = 0; i < turns; i++){
 		
